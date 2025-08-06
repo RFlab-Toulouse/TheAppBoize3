@@ -605,7 +605,7 @@ shinyServer(function(input, output,session) {
     # Reset du cache TEST
     test_result_cache(NULL)
     last_test_params(list())
-    cat(" Fréquences bootstrap réinitialisées (nouvelles données)\n")
+    # cat(" Fréquences bootstrap réinitialisées (nouvelles données)\n")
   })
   
   # Nettoyer les fréquences quand les paramètres critiques changent
@@ -627,19 +627,19 @@ shinyServer(function(input, output,session) {
                    
                    # Seulement réinitialiser si les paramètres ont vraiment changé (et pas au démarrage)
                    if (length(prev_params) > 0 && !identical(current_params, prev_params)) {
-                     cat(" Réinitialisation du cache - Paramètres modifiés :\n")
-                     cat("  rempNA:", input$rempNA, "\n")
-                     cat("  log:", input$log, "\n")
-                     cat("  logtype:", input$logtype, "\n")
-                     cat("  standardization:", input$standardization, "\n")
-                     cat("  arcsin:", input$arcsin, "\n")
-                     cat("  Stack trace pour debug :\n")
-                     cat("    ", paste(sys.calls(), collapse = " -> "), "\n")
+                     # cat(" Réinitialisation du cache - Paramètres modifiés :\n")
+                     # cat("  rempNA:", input$rempNA, "\n")
+                     # cat("  log:", input$log, "\n")
+                     # cat("  logtype:", input$logtype, "\n")
+                     # cat("  standardization:", input$standardization, "\n")
+                     # cat("  arcsin:", input$arcsin, "\n")
+                     # cat("  Stack trace pour debug :\n")
+                     # cat("    ", paste(sys.calls(), collapse = " -> "), "\n")
                      bootstrap_frequencies(NULL)
                      bootstrap_stats_complete(NULL)
                      bootstrap_frequencies_cache_key("")
                      bootstrap_results_cache_key("")
-                     cat(" Fréquences bootstrap réinitialisées (paramètres modifiés)\n")
+                     # cat(" Fréquences bootstrap réinitialisées (paramètres modifiés)\n")
                    }
                    
                    # Mettre à jour les valeurs précédentes
@@ -671,18 +671,18 @@ shinyServer(function(input, output,session) {
                    
                    # Seulement réinitialiser si les paramètres ont vraiment changé (et pas au démarrage)
                    if (length(prev_bootstrap_params) > 0 && !identical(current_bootstrap_params, prev_bootstrap_params)) {
-                     cat(" Réinitialisation du cache - Paramètres bootstrap modifiés :\n")
-                     cat("  bootstrap_test:", input$bootstrap_test, "\n")
-                     cat("  bootstrap_thresholdFCOOB:", input$bootstrap_thresholdFCOOB, "\n")
-                     cat("  bootstrap_thresholdpvOOB:", input$bootstrap_thresholdpvOOB, "\n")
-                     cat("  bootstrap_adjustpvOOB:", input$bootstrap_adjustpvOOB, "\n")
-                     cat("  n_iterations:", input$n_iterations, "\n")
-                     cat("  sample_percentage:", input$sample_percentage, "\n")
+                     # cat(" Réinitialisation du cache - Paramètres bootstrap modifiés :\n")
+                     # cat("  bootstrap_test:", input$bootstrap_test, "\n")
+                     # cat("  bootstrap_thresholdFCOOB:", input$bootstrap_thresholdFCOOB, "\n")
+                     # cat("  bootstrap_thresholdpvOOB:", input$bootstrap_thresholdpvOOB, "\n")
+                     # cat("  bootstrap_adjustpvOOB:", input$bootstrap_adjustpvOOB, "\n")
+                     # cat("  n_iterations:", input$n_iterations, "\n")
+                     # cat("  sample_percentage:", input$sample_percentage, "\n")
                      bootstrap_frequencies(NULL)
                      bootstrap_stats_complete(NULL)
                      bootstrap_frequencies_cache_key("")
                      bootstrap_results_cache_key("")
-                     cat(" Fréquences bootstrap réinitialisées (paramètres bootstrap modifiés)\n")
+                     # cat(" Fréquences bootstrap réinitialisées (paramètres bootstrap modifiés)\n")
                    }
                    
                    # Mettre à jour les valeurs précédentes
@@ -692,10 +692,10 @@ shinyServer(function(input, output,session) {
   # APPROCHE RADICALE : Pas de gestion spéciale des paramètres de seuil
   # Le reactive TEST() se déclenche automatiquement quand les paramètres changent
   observeEvent(c(input$seuil_method, input$stability_threshold), ignoreInit = TRUE, {
-    cat(" Paramètres de seuil modifiés\n")
-    cat("  seuil_method:", input$seuil_method, "\n")
-    cat("  stability_threshold:", input$stability_threshold, "\n")
-    cat("  Le reactive TEST() se déclenchera automatiquement\n")
+    # cat(" Paramètres de seuil modifiés\n")
+    # cat("  seuil_method:", input$seuil_method, "\n")
+    # cat("  stability_threshold:", input$stability_threshold, "\n")
+    # cat("  Le reactive TEST() se déclenchera automatiquement\n")
   })
   
   # Nettoyer manuellement
@@ -732,7 +732,7 @@ shinyServer(function(input, output,session) {
     req(input$n_iterations)
     req(input$sample_percentage)
     
-    cat(" BOOTSTRAP_FREQUENCIES() - Calcul direct (pas de cache)\n")
+    # cat(" BOOTSTRAP_FREQUENCIES() - Calcul direct (pas de cache)\n")
     
     # Calculer les fréquences à chaque fois
     testparameters <<- list("SFtest"=input$SFtest,
@@ -753,7 +753,7 @@ shinyServer(function(input, output,session) {
       session = session
     )
     
-    cat("Fréquences calculées :", length(res$stats_selection$peptide_frequencies), "variables\n")
+    # cat("Fréquences calculées :", length(res$stats_selection$peptide_frequencies), "variables\n")
     return(res$stats_selection$peptide_frequencies)
     })
   
@@ -782,7 +782,7 @@ shinyServer(function(input, output,session) {
     
     # Vérifier si les paramètres ont changé
     last_params <- last_test_params()
-    cat(" Debug TEST() - Comparaison des paramètres :\n")
+    #cat(" Debug TEST() - Comparaison des paramètres :\n")
     # cat("  Paramètres actuels :", paste(names(current_params), "=", unlist(current_params), collapse = ", "), "\n")
     # cat("  Paramètres précédents :", paste(names(last_params), "=", unlist(last_params), collapse = ", "), "\n")
     # cat("  Paramètres identiques :", identical(current_params, last_params), "\n")
@@ -828,11 +828,11 @@ shinyServer(function(input, output,session) {
       # cat("  Ajustement activé :", testparameters$adjustpval, "\n")
       # cat("  Nombre de variables :", if(!is.null(restest$useddata)) nrow(restest$useddata) else 0, "\n")
       if(!is.null(restest$useddata) && nrow(restest$useddata) > 0) {
-        cat("  P-values min :", min(restest$useddata$pval), "\n")
-        cat("  P-values max :", max(restest$useddata$pval), "\n")
-        cat("  Variables significatives (p < 0.05) :", sum(restest$useddata$pval < 0.05), "\n")
+        # cat("  P-values min :", min(restest$useddata$pval), "\n")
+        # cat("  P-values max :", max(restest$useddata$pval), "\n")
+        # cat("  Variables significatives (p < 0.05) :", sum(restest$useddata$pval < 0.05), "\n")
       } else {
-        cat("  Aucune donnée disponible\n")
+        # cat("  Aucune donnée disponible\n")
       }
       
       result <- list(mode = "standard",
@@ -848,8 +848,8 @@ shinyServer(function(input, output,session) {
       
       result
     }else if (input$stats_method == 'bootstrap' & input$bootstrap_test != "notestOOB"){
-      cat(" DÉBUT BOOTSTRAP - ", Sys.time(), "\n")
-      cat("faire les test pour la méthode Bootstrap \n ")
+      # cat(" DÉBUT BOOTSTRAP - ", Sys.time(), "\n")
+      # cat("faire les test pour la méthode Bootstrap \n ")
       
       # Générer les clés de cache
       current_freq_cache_key <- generate_frequencies_cache_key()
@@ -861,7 +861,7 @@ shinyServer(function(input, output,session) {
       # cat(" Résultats en cache :", !is.null(bootstrap_results_cache()) && bootstrap_results_cache_key() == current_results_cache_key, "\n")
       
       # LOGIQUE SIMPLIFIÉE : Calcul direct des fréquences
-      cat(" Calcul des fréquences via BOOTSTRAP_FREQUENCIES()\n")
+      # cat(" Calcul des fréquences via BOOTSTRAP_FREQUENCIES()\n")
       
       # Calculer les fréquences
       freq <- BOOTSTRAP_FREQUENCIES()
@@ -886,7 +886,7 @@ shinyServer(function(input, output,session) {
         upper <- quantile(freq, 0.9)
         selected_vars <- names(freq)[freq >= lower & freq <= upper]
         seuil <- c(lower, upper)
-        cat("Intervalle de confiance calculé (percentiles 10-90)\n")
+        # cat("Intervalle de confiance calculé (percentiles 10-90)\n")
       } else if (input$seuil_method == "manual") {
         seuil <- input$stability_threshold
         selected_vars <- names(freq)[freq >= seuil]
@@ -943,10 +943,10 @@ shinyServer(function(input, output,session) {
       
       # Debug : vérifier que restest est défini
       if (!exists("restest") || is.null(restest)) {
-        cat("ERREUR : restest n'est pas défini !\n")
-        cat("Cache key actuelle :", current_cache_key, "\n")
-        cat("Cache key stockée :", bootstrap_cache_key(), "\n")
-        cat("Fréquences en cache :", !is.null(bootstrap_frequencies()), "\n")
+        # cat("ERREUR : restest n'est pas défini !\n")
+        # cat("Cache key actuelle :", current_cache_key, "\n")
+        # cat("Cache key stockée :", bootstrap_cache_key(), "\n")
+        # cat("Fréquences en cache :", !is.null(bootstrap_frequencies()), "\n")
         return(NULL)
       }
       
@@ -1065,7 +1065,7 @@ shinyServer(function(input, output,session) {
       thresholdFC <- input$thresholdFC
       thresholdpv <- input$thresholdpv
       
-      cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
+      # cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
       
       tryCatch({
         plot_obj <- volcanoplot(logFC = useddata[,3],
@@ -1076,7 +1076,7 @@ shinyServer(function(input, output,session) {
         )
         print(plot_obj)  # Afficher le plot
       }, error = function(e) {
-        cat("Erreur dans volcanoplot_standard :", e$message, "\n")
+        # cat("Erreur dans volcanoplot_standard :", e$message, "\n")
         errorplot(text = paste("Erreur volcanoplot :", e$message))
       })
     }
@@ -1112,7 +1112,7 @@ shinyServer(function(input, output,session) {
   
   # Output pour l'analyse bootstrap
   output$volcanoplot_bootstrap <- renderPlot({
-    cat(" volcanoplot_bootstrap déclenché - ", Sys.time(), "\n")
+    # cat(" volcanoplot_bootstrap déclenché - ", Sys.time(), "\n")
     req(TEST()$DATATEST)
     req(TEST()$USEDDATA)
     req(TEST()$mode == "bootstrap")
@@ -1140,7 +1140,7 @@ shinyServer(function(input, output,session) {
       thresholdFC <- input$bootstrap_thresholdFCOOB
       thresholdpv <- input$bootstrap_thresholdpvOOB
       
-      cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
+      # cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
       
       # Debug des données avant l'appel à volcanoplot
       # cat("  Données pour volcanoplot_bootstrap :\n")
@@ -1160,7 +1160,7 @@ shinyServer(function(input, output,session) {
         # cat("   Dimensions de l'objet plot :", if(is.null(dim(plot_obj))) "NULL" else dim(plot_obj), "\n")
         print(plot_obj)  # Afficher le plot
       }, error = function(e) {
-        cat(" Erreur dans volcanoplot_bootstrap :", e$message, "\n")
+        # cat(" Erreur dans volcanoplot_bootstrap :", e$message, "\n")
         errorplot(text = paste("Erreur volcanoplot :", e$message))
       })
     }
@@ -1256,7 +1256,7 @@ shinyServer(function(input, output,session) {
       
       return(nbdiff)
     }, error = function(e) {
-      cat("Erreur dans nbdiff :", e$message, "\n")
+      # cat("Erreur dans nbdiff :", e$message, "\n")
       return(0) 
     })
   })
@@ -1267,7 +1267,7 @@ shinyServer(function(input, output,session) {
       req(TEST()$mode == "bootstrap")
       nbdiffOOB = positive(ncol(TEST()$LEARNINGDIFF)-1)
     }, error = function(e) {
-      cat("Erreur dans nbdiffOOB :", e$message, "\n")
+      # cat("Erreur dans nbdiffOOB :", e$message, "\n")
       return(0) 
     })
     
@@ -1294,7 +1294,7 @@ shinyServer(function(input, output,session) {
         
         print(plot_obj)  # Afficher le plot
       }, error = function(e) {
-        cat(" Erreur dans barplottest_standard :", e$message, "\n")
+        # cat(" Erreur dans barplottest_standard :", e$message, "\n")
         errorplot(text = paste("Erreur barplottest :", e$message))
       })
     }
@@ -1316,7 +1316,7 @@ shinyServer(function(input, output,session) {
       thresholdFC <- input$thresholdFC
       thresholdpv <- input$thresholdpv
       
-      cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
+      # cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
       tryCatch({
         plot_obj <- barplottest(feature=useddata$names,
                                 logFC=useddata$logFC,
@@ -1330,7 +1330,7 @@ shinyServer(function(input, output,session) {
         
         print(plot_obj)  # Afficher le plot
       }, error = function(e) {
-        cat("Erreur dans barplottest_standard :", e$message, "\n")
+        # cat("Erreur dans barplottest_standard :", e$message, "\n")
         errorplot(text = paste("Erreur barplottest :", e$message))
       })
     }
@@ -1346,12 +1346,12 @@ shinyServer(function(input, output,session) {
     req(TEST()$mode == "bootstrap")
     
     # Debug pour voir la structure des données
-    cat(" Debug barplottest_bootstrap :\n")
-    cat("  Mode :", TEST()$mode, "\n")
-    cat("  Nrow LEARNINGDIFF :", nrow(TEST()$LEARNINGDIFF), "\n")
-    cat("  Ncol LEARNINGDIFF :", ncol(TEST()$LEARNINGDIFF), "\n")
-    cat("  Nrow USEDDATA :", nrow(TEST()$USEDDATA), "\n")
-    cat("  Ncol USEDDATA :", ncol(TEST()$USEDDATA), "\n")
+    # cat(" Debug barplottest_bootstrap :\n")
+    # cat("  Mode :", TEST()$mode, "\n")
+    # cat("  Nrow LEARNINGDIFF :", nrow(TEST()$LEARNINGDIFF), "\n")
+    # cat("  Ncol LEARNINGDIFF :", ncol(TEST()$LEARNINGDIFF), "\n")
+    # cat("  Nrow USEDDATA :", nrow(TEST()$USEDDATA), "\n")
+    # cat("  Ncol USEDDATA :", ncol(TEST()$USEDDATA), "\n")
     
     learningdiff<<-TEST()$LEARNINGDIFF
     useddata<<-TEST()$USEDDATA
@@ -1360,17 +1360,17 @@ shinyServer(function(input, output,session) {
       thresholdFC <- input$bootstrap_thresholdFCOOB
       thresholdpv <- input$bootstrap_thresholdpvOOB
       
-      cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
+      # cat("  Paramètres utilisés - thresholdFC:", thresholdFC, "thresholdpv:", thresholdpv, "\n")
       
       # Debug des données avant l'appel à barplottest
-      cat("  Données pour barplottest_bootstrap :\n")
-      cat("    feature :", head(useddata$names), "...\n")
-      cat("    logFC :", head(useddata$logFC), "...\n")
-      cat("    levels :", levels(learningdiff[,1]), "\n")
-      cat("    pval :", head(useddata$pval), "...\n")
-      cat("    mean1 :", head(useddata$mean1), "...\n")
-      cat("    mean2 :", head(useddata$mean2), "...\n")
-      
+      # cat("  Données pour barplottest_bootstrap :\n")
+      # cat("    feature :", head(useddata$names), "...\n")
+      # cat("    logFC :", head(useddata$logFC), "...\n")
+      # cat("    levels :", levels(learningdiff[,1]), "\n")
+      # cat("    pval :", head(useddata$pval), "...\n")
+      # cat("    mean1 :", head(useddata$mean1), "...\n")
+      # cat("    mean2 :", head(useddata$mean2), "...\n")
+      # 
       tryCatch({
         plot_obj <- barplottest(feature=useddata$names,
                                 logFC=useddata$logFC,
@@ -1381,12 +1381,12 @@ shinyServer(function(input, output,session) {
                                 thresholdpv=thresholdpv,
                                 thresholdFC=thresholdFC,
                                 graph=T,maintitle="Mean by group for differentially expressed variables")
-        cat("  barplottest_bootstrap exécuté avec succès\n")
-        cat("  Type de l'objet plot :", class(plot_obj), "\n")
-        cat(" Dimensions de l'objet plot :", if(is.null(dim(plot_obj))) "NULL" else dim(plot_obj), "\n")
+        # cat("  barplottest_bootstrap exécuté avec succès\n")
+        # cat("  Type de l'objet plot :", class(plot_obj), "\n")
+        # cat(" Dimensions de l'objet plot :", if(is.null(dim(plot_obj))) "NULL" else dim(plot_obj), "\n")
         print(plot_obj)  # Afficher le plot
       }, error = function(e) {
-        cat(" Erreur dans barplottest_bootstrap :", e$message, "\n")
+        #cat(" Erreur dans barplottest_bootstrap :", e$message, "\n")
         errorplot(text = paste("Erreur barplottest :", e$message))
       })
     }
@@ -1520,14 +1520,14 @@ shinyServer(function(input, output,session) {
     req(input$thresholdmodel)
     
     # Correction de la condition pour gérer correctement les modes standard et bootstrap
-    cat(" MODEL() reactive déclenché - Mode :", input$stats_method, "\n")
+    # cat(" MODEL() reactive déclenché - Mode :", input$stats_method, "\n")
     
     if(input$stats_method == 'standard' && input$test == "notest"){
       learningmodel<<-TRANSFORMDATA()$LEARNINGTRANSFORM
-      cat("Utilisation des données transformées (mode standard, no test)\n")
+      # cat("Utilisation des données transformées (mode standard, no test)\n")
     } else {
       learningmodel<<-TEST()$LEARNINGDIFF
-      cat("Utilisation des données de TEST() - Nombre de variables :", ncol(learningmodel)-1, "\n")
+      # cat("Utilisation des données de TEST() - Nombre de variables :", ncol(learningmodel)-1, "\n")
     }
     validation<<-DATA()$VALIDATION
     datastructuresfeatures<<-SELECTDATA()$DATASTRUCTUREDFEATURES
@@ -1949,7 +1949,7 @@ shinyServer(function(input, output,session) {
   # fonction d'affichage de l'état de la méthode bootstrap :  complete ou non 
   output$bootstrap_completed <- reactive({
     req(TEST())
-    cat("le Test est complete : ", TEST()$completed , "\n")
+    # cat("le Test est complete : ", TEST()$completed , "\n")
     return(TEST()$completed)
   })
   outputOptions(output, 'bootstrap_completed', suspendWhenHidden=FALSE)
